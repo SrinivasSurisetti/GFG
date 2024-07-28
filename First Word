@@ -1,0 +1,18 @@
+class Solution {
+    public static String firstWord(int n, String[] dictionary) {
+        // code here
+        HashSet<String> set = new HashSet<>();
+        for(String ele : dictionary){
+            if(!set.add(ele)){
+                return "Invalid";
+            }
+        }
+        String min = dictionary[0];
+        for(String ele : dictionary){
+            if(ele.compareTo(min) < 0){
+                min = ele;
+            }
+        }
+        return min;
+    }
+}
