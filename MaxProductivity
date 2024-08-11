@@ -1,0 +1,21 @@
+class Solution {
+    public static int getMaxProductivity(int n, int[] productivity) {
+        // code here
+        int sum = Arrays.stream(productivity).sum();
+        int half = sum/2;
+        boolean[] dp = new boolean[half+1];
+        dp[0] = true;
+        for(int ele : productivity){
+            for(int i = half;i>=ele;i--){
+                dp[i] = dp[i] || dp[i-ele];
+            }
+        }
+        int bestsum = 0;
+        for(int i = 0;i<=half;i++){
+            if(dp[i]){
+                bestsum = i;
+            }
+        }
+        return bestsum*(sum-bestsum);
+    }
+}
