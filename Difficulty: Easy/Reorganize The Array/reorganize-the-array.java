@@ -1,0 +1,69 @@
+//{ Driver Code Starts
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Scanner;
+
+
+// } Driver Code Ends
+
+import java.util.*;
+class Solution {
+    public List<Integer> rearrange(List<Integer> arr) {
+        // Code here
+        int n = arr.size();
+        
+        for (int i = 0; i < n; i++) {
+            // Keep swapping until arr[i] is either at its correct position or it's -1
+            while (arr.get(i) != -1 && arr.get(i) != i) {
+                int correctIndex = arr.get(i);
+                
+                // If the correct index already has the correct value, avoid infinite loop
+                if (arr.get(correctIndex) == correctIndex) {
+                    break;
+                }
+                
+                // Swap arr[i] with arr[arr[i]]
+                Collections.swap(arr, i, correctIndex);
+            }
+        }
+
+        // After rearranging, place -1 where indices do not match the value
+        for (int i = 0; i < n; i++) {
+            if (arr.get(i) != i) {
+                arr.set(i, -1);
+            }
+        }
+
+        return arr;
+    }
+}
+
+//{ Driver Code Starts.
+public class Main {
+    public static void main(String[] args) {
+        Scanner scanner = new Scanner(System.in);
+        int t = scanner.nextInt();
+        scanner.nextLine(); // Consume the newline character
+
+        Solution solution = new Solution();
+
+        while (t-- > 0) {
+            String input = scanner.nextLine();
+            String[] inputArr = input.split("\\s+");
+            List<Integer> arr = new ArrayList<>();
+            for (String s : inputArr) {
+                arr.add(Integer.parseInt(s));
+            }
+
+            List<Integer> ans = solution.rearrange(arr);
+
+            for (int num : ans) {
+                System.out.print(num + " ");
+            }
+            System.out.println();
+        }
+
+        scanner.close();
+    }
+}
+// } Driver Code Ends
